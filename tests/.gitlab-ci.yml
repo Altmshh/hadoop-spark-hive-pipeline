@@ -1,0 +1,17 @@
+stages:
+  - test
+  - deploy_dev
+
+run_unit_tests:
+  stage: test
+  image: python:3.9
+  script:
+    - pip install pytest pyspark
+    - pytest tests/
+
+deploy_to_dev:
+  stage: deploy_dev
+  script:
+    - echo "Deploying pipeline to Dev cluster..."
+  only:
+    - develop
