@@ -1,5 +1,6 @@
 stages:
   - test
+  - run
   - deploy
 
 run_unit_tests:
@@ -8,6 +9,15 @@ run_unit_tests:
   script:
     - pip install pytest pyspark
     - pytest tests/
+
+run_pipeline_scripts:
+  stage: run
+  image: python:3.9
+  script:
+    - echo "Executing data pipeline layers..."
+    - python run_bronze_ingest.py
+    - python src/transformation/run_silver_transform.py
+    - python src/gold/run_gold_aggregation.py
 
 deploy_to_env:
   stage: deploy
