@@ -14,6 +14,7 @@ run_pipeline_scripts:
   stage: run
   image: python:3.9
   script:
+    - pip install pandas pyarrow
     - echo "Executing data pipeline layers..."
     - python run_bronze_ingest.py
     - python src/transformation/run_silver_transform.py
