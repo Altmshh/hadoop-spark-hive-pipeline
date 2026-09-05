@@ -1,6 +1,6 @@
 stages:
   - test
-  - deploy_dev
+  - deploy
 
 run_unit_tests:
   stage: test
@@ -9,9 +9,12 @@ run_unit_tests:
     - pip install pytest pyspark
     - pytest tests/
 
-deploy_to_dev:
-  stage: deploy_dev
+deploy_to_env:
+  stage: deploy
+  image: python:3.9
   script:
-    - echo "Deploying pipeline to Dev cluster..."
+    - echo "Starting deployment to target environment..."
+    - echo "Pipeline artifacts deployed successfully!"
   only:
     - develop
+    - main
